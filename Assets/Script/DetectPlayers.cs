@@ -42,13 +42,29 @@ public class DetectPlayers : MonoBehaviour {
 				return;
 			}
 
-			_player1Object = Instantiate (Player1, new Vector3 (-3f, -3f, 0f), transform.rotation);
-			_player1Object.SetActive(false);
-			_player2Object = Instantiate (Player2, new Vector3 (3f, -3f, 0f), transform.rotation);
-			_player2Object.SetActive(false);
 
+			InitPlayers ();
 		}
 	}
+
+	public void InitPlayers() {
+
+		if (_player1Object != null) {
+			Destroy (_player1Object);
+		}
+
+		_player1Object = Instantiate (Player1, new Vector3 (-3f, -3f, 0f), transform.rotation);
+		_player1Object.SetActive(false);
+
+		if (_player2Object != null) {
+			Destroy (_player2Object);
+		}
+		_player2Object = Instantiate (Player2, new Vector3 (3f, -3f, 0f), transform.rotation);
+		_player2Object.SetActive(false);
+		_player1 = null;
+		_player2 = null;
+	}
+
 		
 	
 	// Update is called once per frame
@@ -80,6 +96,7 @@ public class DetectPlayers : MonoBehaviour {
 				Debug.Log("body is tracked" + body.TrackingId);
 				//Debug.Log ("TrackingID: " + body.TrackingId);
 				if (body.Joints[TrackedJoint].Position.Z < 4){
+					
 					if (_player1 == null) {
 						_player1 = body;
 						print ("Player1: " + _player1.TrackingId);
@@ -119,5 +136,12 @@ public class DetectPlayers : MonoBehaviour {
 			}
 		}
 	}
+		
 
+	void OnGUI() {
+		float buttonWidth = Screen.width / 5f;
+		float buttonPositionY = Screen.height * 0.8f;
+
+
+	}
 }
