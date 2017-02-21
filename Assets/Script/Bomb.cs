@@ -5,7 +5,6 @@ using UnityEngine;
 public class Bomb : MonoBehaviour {
     
 	public GameObject Explosion;
-	public AudioSource Explo;
 
 	// Use this for initialization
 	void Start () {
@@ -22,14 +21,12 @@ public class Bomb : MonoBehaviour {
 		if (col.tag == "Player1") {
 			GameControl.Score1 -= 1000;
 			Instantiate (Explosion, this.transform.position, transform.rotation);
-			Explo.Play ();
 			Destroy (gameObject);
 		}
 
 		if (col.tag == "Player2") {
 			GameControl.Score2 -= 1000;
 			Instantiate (Explosion, this.transform.position, transform.rotation);
-			Explo.Play ();
 			Destroy (gameObject);
 		}
 	}

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Windows.Kinect;
@@ -10,7 +10,7 @@ public class DetectPlayers : MonoBehaviour {
 	public GameObject Player2;
 	public JointType TrackedJoint;
 
-	private float multiplier = 10f;
+	private float multiplier;
 	private BodySourceManager bodyManager;
 	private KinectSensor kinectSensor;
 	private CoordinateMapper coordinateMapper;
@@ -32,7 +32,7 @@ public class DetectPlayers : MonoBehaviour {
 		}
 		else
 		{
-			Debug.Log("Started!!");
+			Debug.Log("Started!!!!!!!!");
 			bodyManager = BodySrcManager.GetComponent<BodySourceManager>();
 			this.kinectSensor = KinectSensor.GetDefault ();
 			coordinateMapper = this.kinectSensor.CoordinateMapper;
@@ -42,6 +42,7 @@ public class DetectPlayers : MonoBehaviour {
 				return;
 			}
 
+			multiplier = PlayerPrefs.GetFloat ("BodyMoveSpeed");
 
 			InitPlayers ();
 		}
@@ -79,7 +80,7 @@ public class DetectPlayers : MonoBehaviour {
 
 		if (bodies == null)
 		{
-			//Debug.Log("bodies is null");
+			Debug.Log("bodies is null");
 			return;
 		}
 
@@ -90,7 +91,7 @@ public class DetectPlayers : MonoBehaviour {
 				Debug.Log("body is null");
 				continue;
 			}
-
+				
 			if (body.IsTracked)
 			{
 				Debug.Log("body is tracked" + body.TrackingId);
