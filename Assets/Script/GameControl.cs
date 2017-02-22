@@ -173,20 +173,28 @@ public class GameControl : MonoBehaviour {
 			setCountedTime();	 
 		});
 
-		float buttonWidth = Screen.width / 5f;
+		float buttonPosX = 100f;
+		float buttonGap = 10f;
+		float buttonWidth = Screen.width / 6f;
 		float buttonPositionY = Screen.height * 0.8f;
-		if ( GUI.Button (new Rect (buttonWidth, buttonPositionY, buttonWidth, 60), "Play") ){
+		if ( GUI.Button (new Rect (buttonPosX, buttonPositionY, buttonWidth, 60), "Play") ){
 			BackgroundSound.Play ();
 			isPlaying = true;
 			_time = _countedTime + 1f;
 			Score1 = 0;
 			Score2 = 0;
 		}
-		if ( GUI.Button (new Rect (buttonWidth * 2f, buttonPositionY, buttonWidth, 60), "Reload") ){
+
+		if ( GUI.Button (new Rect (buttonPosX + (buttonWidth + buttonGap), buttonPositionY, buttonWidth, 60), "Stop") ){
+			isPlaying = false;
+			BackgroundSound.Stop ();
+		}
+
+		if ( GUI.Button (new Rect (buttonPosX + (buttonWidth + buttonGap) * 2f, buttonPositionY, buttonWidth, 60), "Reload") ){
 			_playerManager.InitPlayers();
 		}
 
-		if ( GUI.Button (new Rect (buttonWidth * 3, buttonPositionY, buttonWidth, 60), "Exit ") ){
+		if ( GUI.Button (new Rect (buttonPosX + (buttonWidth + buttonGap) * 3, buttonPositionY, buttonWidth, 60), "Exit ") ){
 			Application.Quit();
 		}
 	}
