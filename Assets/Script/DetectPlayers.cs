@@ -95,6 +95,7 @@ public class DetectPlayers : MonoBehaviour {
 				
 			if (body.IsTracked)
 			{
+				
 				Debug.Log("body is tracked" + body.TrackingId);
 				//Debug.Log ("TrackingID: " + body.TrackingId);
 				if (body.Joints[TrackedJoint].Position.Z < 4){
