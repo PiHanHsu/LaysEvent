@@ -97,7 +97,7 @@ public class GameControl : MonoBehaviour {
 
 			if (_player1Time > player1CreateTime) {
 				int i = Random.Range (0, 3);
-				GameObject _laysProductClone = Instantiate<GameObject> (_laysProducts[i], new Vector3 (Random.Range (-6.5f, -1f), 4f, 0), transform.rotation);
+				GameObject _laysProductClone = Instantiate<GameObject> (_laysProducts[i], new Vector3 (Random.Range (-8.5f, -1f), 4f, 0), transform.rotation);
 				Destroy (_laysProductClone, 3);
 				player1CreateTime = Random.Range (0.3f, 0.8f);
 				_player1Time = 0;
@@ -105,7 +105,7 @@ public class GameControl : MonoBehaviour {
 
 			if (_player2Time > player2CreateTime) {
 				int i = Random.Range (0, 3);
-				GameObject _laysProductClone = Instantiate<GameObject> (_laysProducts[i], new Vector3 (Random.Range (1f, 6.5f), 4f, 0), transform.rotation);
+				GameObject _laysProductClone = Instantiate<GameObject> (_laysProducts[i], new Vector3 (Random.Range (1f, 8.5f), 4f, 0), transform.rotation);
 				Destroy (_laysProductClone, 3);
 				player2CreateTime = Random.Range (0.3f, 0.8f);
 				_player2Time = 0;
@@ -117,18 +117,18 @@ public class GameControl : MonoBehaviour {
 			Score1Text.GetComponent<TextMesh> ().text = "Player1: " + Score1.ToString ();
 			Score2Text.GetComponent<TextMesh> ().text = "Player2: " + Score2.ToString ();
 
-			if (_time < 15) {
+			if (_time < 25) {
 				if (_bomb1Time > bomb1CreateTime) {
-					GameObject bombClone1 = Instantiate<GameObject> (Bomb, new Vector3 (Random.Range (-6f, -1f), 4f, 0), transform.rotation);
+					GameObject bombClone1 = Instantiate<GameObject> (Bomb, new Vector3 (Random.Range (-8f, -1f), 4f, 0), transform.rotation);
 					Destroy (bombClone1, 3);
-					bomb1CreateTime = Random.Range (3f, 5f);
+					bomb1CreateTime = Random.Range (0.5f, 2f);
 					_bomb1Time = 0f;
 				}
 
 				if (_bomb2Time > bomb2CreateTime) {
-					GameObject bombClone2 = Instantiate<GameObject> (Bomb, new Vector3 (Random.Range (1f, 6f), 4f, 0), transform.rotation);
+					GameObject bombClone2 = Instantiate<GameObject> (Bomb, new Vector3 (Random.Range (1f, 8f), 4f, 0), transform.rotation);
 					Destroy (bombClone2, 3);
-					bomb2CreateTime = Random.Range (3f, 5f);
+					bomb2CreateTime = Random.Range (0.5f, 2f);
 					_bomb2Time = 0f;
 				}
 			
@@ -176,7 +176,7 @@ public class GameControl : MonoBehaviour {
 		float buttonPosX = 100f;
 		float buttonGap = 10f;
 		float buttonWidth = Screen.width / 6f;
-		float buttonPositionY = Screen.height * 0.8f;
+		float buttonPositionY = Screen.height * 0.85f;
 		if ( GUI.Button (new Rect (buttonPosX, buttonPositionY, buttonWidth, 60), "Play") ){
 			BackgroundSound.Play ();
 			isPlaying = true;
@@ -202,6 +202,7 @@ public class GameControl : MonoBehaviour {
 	void setBodyMoveSpeed() {
 		
 		PlayerPrefs.SetFloat ("BodyMoveSpeed", SpeedSlider.value);
+
 	
 	}
 

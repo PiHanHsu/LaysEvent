@@ -41,14 +41,15 @@ public class DetectPlayers : MonoBehaviour {
 				Debug.Log("bodyManager is null when start");
 				return;
 			}
-
-			multiplier = PlayerPrefs.GetFloat ("BodyMoveSpeed");
-
+				
 			InitPlayers ();
 		}
 	}
 
 	public void InitPlayers() {
+
+		multiplier = PlayerPrefs.GetFloat ("BodyMoveSpeed");
+		print ("multiplier: " + multiplier);
 
 		if (_player1Object != null) {
 			Destroy (_player1Object);
@@ -142,7 +143,5 @@ public class DetectPlayers : MonoBehaviour {
 	void OnGUI() {
 		float buttonWidth = Screen.width / 5f;
 		float buttonPositionY = Screen.height * 0.8f;
-
-
 	}
 }
