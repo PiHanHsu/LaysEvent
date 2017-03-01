@@ -1,6 +1,8 @@
-﻿ using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Windows.Kinect;
 
 public class DetectPlayers : MonoBehaviour {
@@ -9,6 +11,7 @@ public class DetectPlayers : MonoBehaviour {
 	public GameObject Player1;
 	public GameObject Player2;
 	public JointType TrackedJoint;
+	public Text TrackingBodiesText;
 
 	private float multiplier;
 	private BodySourceManager bodyManager;
@@ -22,6 +25,10 @@ public class DetectPlayers : MonoBehaviour {
 	private Body _player1;
 	private Body _player2;
 	private Body _tempPlayer;
+
+	private int _trackBodyCount;
+	private float _limitZ = 4f;
+	private float _limitX = -1.7f;
 
 	// Use this for initialization
 	void Start () {
@@ -49,7 +56,7 @@ public class DetectPlayers : MonoBehaviour {
 	public void InitPlayers() {
 
 		multiplier = PlayerPrefs.GetFloat ("BodyMoveSpeed");
-		print ("multiplier: " + multiplier);
+		//print ("multiplier: " + multiplier);
 
 		if (_player1Object != null) {
 			Destroy (_player1Object);
@@ -85,25 +92,34 @@ public class DetectPlayers : MonoBehaviour {
 			return;
 		}
 
+		bodies = Array.FindAll(bodies, body => (body.Joints[TrackedJoint].Position.Z < _limitZ && body.Joints[TrackedJoint].Position.X > _limitX));
+
+		print ("bodies: " + bodies.Length);
+
+		_trackBodyCount = 0;
+		int _nonTrackBodyCount = 0;
+
 		foreach (var body in bodies)
 		{
 			if (body == null)
 			{
-				Debug.Log("body is null");
+				
+				//Debug.Log("body is null");
 				continue;
 			}
 				
-			if (body.IsTracked)
-			{
-				
-				Debug.Log("body is tracked" + body.TrackingId);
-				//Debug.Log ("TrackingID: " + body.TrackingId);
-				if (body.Joints[TrackedJoint].Position.Z < 4){
+			if (body.IsTracked) {
+				_trackBodyCount += 1;
+
+				Debug.Log ("body is tracked" + body.TrackingId);
+
+
+				if (body.Joints [TrackedJoint].Position.Z < _limitZ) {
 					
 					if (_player1 == null) {
 						_player1 = body;
 						print ("Player1: " + _player1.TrackingId);
-					} else if (_player2 == null && body.TrackingId != _player1.TrackingId ) {
+					} else if (_player2 == null && body.TrackingId != _player1.TrackingId) {
 						_player2 = body;
 						print ("Player2: " + _player2.TrackingId);
 						if (_player1.Joints [TrackedJoint].Position.X > _player2.Joints [TrackedJoint].Position.X) {
@@ -114,12 +130,11 @@ public class DetectPlayers : MonoBehaviour {
 					}
 				}
 
-
 				if (_player1 != null) {
 					_player1Object.SetActive (true);
-					var pos1 = _player1.Joints[TrackedJoint].Position;
+					var pos1 = _player1.Joints [TrackedJoint].Position;
 					_player1Object.transform.position = new Vector3 (pos1.X * multiplier, -3);
-					if (pos1.Z > 4) {
+					if (pos1.Z > _limitZ) {
 						_player1 = null;
 						_player1Object.SetActive (false);
 					}
@@ -128,21 +143,24 @@ public class DetectPlayers : MonoBehaviour {
 
 				if (_player2 != null) {
 					_player2Object.SetActive (true);
-					var pos2 = _player2.Joints[TrackedJoint].Position;
+					var pos2 = _player2.Joints [TrackedJoint].Position;
 					_player2Object.transform.position = new Vector3 (pos2.X * multiplier, -3);
-					if (pos2.Z > 4) {
+					if (pos2.Z > _limitZ) {
 						_player2 = null;
 						_player2Object.SetActive (false);
 					}
 				}
 
+			} else {
+				_nonTrackBodyCount += 1;
 			}
 		}
+
+		TrackingBodiesText.text = "Tracking Bodies: " + _trackBodyCount;
+
+		print ("Now Kinect is tracking " + _trackBodyCount + "bodies!");
+		print ("Non Track Bodies: " + _nonTrackBodyCount);
+
 	}
 		
-
-	void OnGUI() {
-		float buttonWidth = Screen.width / 5f;
-		float buttonPositionY = Screen.height * 0.8f;
-	}
 }
