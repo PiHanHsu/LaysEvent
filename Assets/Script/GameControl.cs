@@ -25,6 +25,7 @@ public class GameControl : MonoBehaviour {
 	public GUISkin GameGUISkin;
 
 	public UnityEngine.AudioSource BackgroundSound;
+	public UnityEngine.AudioSource CountDownSound;
 
 	public static int Score1 = 0;
 	public static int Score2 = 0;
@@ -36,6 +37,7 @@ public class GameControl : MonoBehaviour {
 	private float _player2Time = 0f;
 	private float _bomb1Time = 0f;
 	private float _bomb2Time = 0f;
+	private float _countDownTime = 0f;
 
 	private float player1CreateTime;
 	private float player2CreateTime;
@@ -92,6 +94,7 @@ public class GameControl : MonoBehaviour {
 		_player2Time += Time.deltaTime;
 		_bomb1Time += Time.deltaTime;
 		_bomb2Time += Time.deltaTime;
+		_countDownTime += Time.deltaTime;
 
 		if (isPlaying) {
 
@@ -114,8 +117,8 @@ public class GameControl : MonoBehaviour {
 			_time -= Time.deltaTime;
 			int time = (int)_time;
 			TimeText.GetComponent<TextMesh>().text = time.ToString();
-			Score1Text.GetComponent<TextMesh> ().text = "Player1: " + Score1.ToString ();
-			Score2Text.GetComponent<TextMesh> ().text = "Player2: " + Score2.ToString ();
+			Score1Text.GetComponent<TextMesh> ().text = "金呷讚: " + Score1.ToString ();
+			Score2Text.GetComponent<TextMesh> ().text = "一定銀: " + Score2.ToString ();
 
 			if (_time < 25) {
 				if (_bomb1Time > bomb1CreateTime) {
@@ -134,6 +137,11 @@ public class GameControl : MonoBehaviour {
 			
 			}
 
+			if (_time < 6 && _countDownTime > 7) {
+				CountDownSound.Play ();
+				_countDownTime = 0f;
+			}
+
 			if (_time < 0) {
 				isPlaying = false;
 				StartCoroutine (Gameover ());
@@ -150,9 +158,9 @@ public class GameControl : MonoBehaviour {
 						result = "雙方平手!!";
 					} else {
 						if (Score1 > Score2) {
-							result = "恭喜 玩家1 獲勝!";
+							result = "恭喜 金呷讚 獲勝!";
 						} else {
-							result = "恭喜 玩家2 獲勝!";
+							result = "恭喜 一定銀 獲勝!";
 						}
 					}
 
