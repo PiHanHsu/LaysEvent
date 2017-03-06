@@ -286,7 +286,7 @@ public class DetectPlayers : MonoBehaviour {
 	private static Vector3 GetVector3FromJoint(Windows.Kinect.Joint joint)
 	{
 
-		float x = (joint.Position.X * 15 + (60f)) * 4f / 18f;
+		float x = (joint.Position.X * 15 + (80f)) * 4f / 18f;
 		float y = (joint.Position.Y * 5 - (5f)) * 3f / 5f;
 		return new Vector3(x,  y, -1);
 	}
