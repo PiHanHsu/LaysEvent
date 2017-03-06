@@ -77,6 +77,8 @@ public class GameControl : MonoBehaviour {
 		_time = _countedTime + 1f;
 		SetTimeText.text = "時間: " + _countedTime + " 秒";
 		TimeText.GetComponent<TextMesh>().text = _countedTime.ToString();
+		Score1Text.GetComponent<TextMesh> ().text = "金呷讚: " + Score1.ToString ();
+		Score2Text.GetComponent<TextMesh> ().text = "一定銀: " + Score2.ToString ();
 	}
 	
 	// Update is called once per frame
@@ -195,6 +197,12 @@ public class GameControl : MonoBehaviour {
 
 		if ( GUI.Button (new Rect (buttonPosX + (buttonWidth + buttonGap), buttonPositionY, buttonWidth, 60), "Stop") ){
 			isPlaying = false;
+			_time = _countedTime + 1f;
+			Score1 = 0;
+			Score2 = 0;
+			TimeText.GetComponent<TextMesh>().text = _countedTime.ToString();
+			Score1Text.GetComponent<TextMesh> ().text = "金呷讚: " + Score1.ToString ();
+			Score2Text.GetComponent<TextMesh> ().text = "一定銀: " + Score2.ToString ();
 			BackgroundSound.Stop ();
 		}
 
