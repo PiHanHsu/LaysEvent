@@ -10,7 +10,7 @@ public class FallingBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gameObject.transform.position += new Vector3 (0f, -0.05f, 0f);
+		gameObject.transform.position += new Vector3 (0f, -0.03f, 0f);
 		transform.Rotate (new Vector3 (0, 0, 180) * Time.deltaTime);
 	}
 

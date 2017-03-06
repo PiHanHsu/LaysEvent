@@ -103,16 +103,16 @@ public class GameControl : MonoBehaviour {
 			if (_player1Time > player1CreateTime) {
 				int i = Random.Range (0, 3);
 				GameObject _laysProductClone = Instantiate<GameObject> (_laysProducts[i], new Vector3 (Random.Range (-8.5f, -1f), 4f, 0), transform.rotation);
-				Destroy (_laysProductClone, 3);
-				player1CreateTime = Random.Range (0.3f, 0.8f);
+				Destroy (_laysProductClone, 4);
+				player1CreateTime = Random.Range (0.5f, 1f);
 				_player1Time = 0;
 			}
 
 			if (_player2Time > player2CreateTime) {
 				int i = Random.Range (0, 3);
 				GameObject _laysProductClone = Instantiate<GameObject> (_laysProducts[i], new Vector3 (Random.Range (1f, 8.5f), 4f, 0), transform.rotation);
-				Destroy (_laysProductClone, 3);
-				player2CreateTime = Random.Range (0.3f, 0.8f);
+				Destroy (_laysProductClone, 4);
+				player2CreateTime = Random.Range (0.5f, 1f);
 				_player2Time = 0;
 			}
 		

@@ -97,13 +97,13 @@ public class DetectPlayers : MonoBehaviour {
 			Destroy (_player1Object);
 		}
 
-		_player1Object = Instantiate (Player1, new Vector3 (-3f, -3f, 0f), transform.rotation);
+		_player1Object = Instantiate (Player1, new Vector3 (-3f, -4f, 0f), transform.rotation);
 		_player1Object.SetActive(false);
 
 		if (_player2Object != null) {
 			Destroy (_player2Object);
 		}
-		_player2Object = Instantiate (Player2, new Vector3 (3f, -3f, 0f), transform.rotation);
+		_player2Object = Instantiate (Player2, new Vector3 (3f, -4f, 0f), transform.rotation);
 		_player2Object.SetActive(false);
 		_player1 = null;
 		_player2 = null;
@@ -201,7 +201,7 @@ public class DetectPlayers : MonoBehaviour {
 		if (_player1 != null) {
 			_player1Object.SetActive (true);
 			var pos1 = _player1.Joints [TrackedJoint].Position;
-			_player1Object.transform.position = new Vector3 (pos1.X * multiplier, -3);
+			_player1Object.transform.position = new Vector3 (pos1.X * multiplier, -4);
 		} else {
 			_player1Object.SetActive (false);
 		}
@@ -209,7 +209,7 @@ public class DetectPlayers : MonoBehaviour {
 		if (_player2 != null) {
 			_player2Object.SetActive (true);
 			var pos2 = _player2.Joints [TrackedJoint].Position;
-			_player2Object.transform.position = new Vector3 (pos2.X * multiplier, -3);
+			_player2Object.transform.position = new Vector3 (pos2.X * multiplier, -4);
 		} else {
 			_player2Object.SetActive (false);
 		}
